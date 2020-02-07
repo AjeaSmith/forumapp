@@ -1,5 +1,71 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model Forum.Models.Post.PostIndexModel
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<Forum.ForumData.Models.ApplicationUser> UserManager
+@inject SignInManager<Forum.ForumData.Models.ApplicationUser> SignInManager
+
+    <div class="container mt-4">
+        <article class="message is-info mb-3">
+            <div class="message-header title">
+                <h3>@Model.Title</h3>
+                <button class="delete"></button>
+            </div>
+            <div class="message-body">
+                <h3 class="title is-5">Posted By: <a></a>@Model.AuthorName</h3>
+                <p class="subtitle is-6">Date Posted: @Model.Date</p>
+                <p class="subtitle is-6">
+                    Posted in:
+                    <a asp-controller="Forum" asp-action="Topic" asp-route-id="@Model.ForumId" class="has-text-link">@Model.ForumName</a>
+
+                </p>
+                <br />
+                <p>@Model.Content</p>
+            </div>
+        </article>
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <a asp-controller="Reply" asp-action="Create" asp-route-id="@Model.Id" class="btn btn-primary">Add Reply</a>
+        }
+        else
+        {
+            <div class="message-body mb-3">
+                Login or Sign up to leave a comment
+            </div>
+        }
+    <div class="replyList mt-3">
+        @if (!Model.Replies.Any())
+        {
+            <div class="message-body">
+                <p>No Comments for this post</p>
+            </div>
+        }
+        else
+        {
+            @foreach (var reply in Model.Replies)
+            {
+    <article class="media">
+        <figure class="media-left">
+            <p class="image is-64x64">
+                <img src="https://bulma.io/images/placeholders/128x128.png">
+            </p>
+        </figure>
+        <div class="media-content">
+            <div class="content">
+                <p>
+                    <strong>@reply.AuthorName</strong> <small>@reply.ReplyCreated</small>
+                    <br>
+                     @reply.ReplyContent
+                </p>
+            </div>
+            <nav class="level is-mobile">
+                <div class="level-left">
+                    <a class="level-item">
+                        <span class="icon is-small"><i class="fas fa-reply"></i></span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </article> 
+            }
+        }
+    </div>
+    </div>

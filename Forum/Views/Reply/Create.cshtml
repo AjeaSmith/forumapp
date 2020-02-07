@@ -1,1 +1,23 @@
-﻿reply page
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<Forum.ForumData.Models.ApplicationUser> userManager
+@model Forum.Models.Post.PostReplyModel
+<div class="replyBox mt-4 container">
+    <article class="media">
+        <form class="media-content" asp-controller="Reply" asp-action="Create" method="post">
+            <div class="field">
+                <p class="control">
+                    <textarea class="textarea" placeholder="Add a comment..." asp-for="ReplyContent"></textarea>
+                </p>
+                <span class="help is-danger" asp-validation-for="ReplyContent"></span>
+            </div>
+            <p class="mb-2">You're submitting a reply as: @User.Identity.Name</p>
+            <nav class="level">
+                <div class="level-left">
+                    <div class="level-item">
+                        <input class="button is-info" type="submit" value="Add Reply" />
+                    </div>
+                </div>
+            </nav>
+        </form>
+    </article>
+</div>

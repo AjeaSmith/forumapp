@@ -1,5 +1,42 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model Forum.Models.Forum.TopicResultModel
+
+<section class="hero is-dark mb-3">
+    <div class="hero-body">
+        <div class="container">
+            <div style="display:flex">
+                <div class="left-img thumbnail-img">
+                    <img src="~/images/@Model.Forum.ImageUrl" width="100" height="100"/>
+                </div>
+                <div class="right-text" style="margin-left:10px">
+                    <h1 class="title">
+                        @Model.Forum.Title
+                    </h1>
+                    <h2 class="subtitle">
+                        @Model.Forum.Description
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="container">
+    @if (!Model.Posts.Any())
+    {
+        <h2 class="title">No Posts to show</h2>
+        <p>Be the first to create one.</p>
+        <a class="button is-primary mb-2 mt-2" asp-controller="Post" asp-action="Create" asp-route-id="@Model.Forum.Id">Create New Post</a>
+    }
+    else
+    {
+        <a class="button is-primary mb-2 mt-2" asp-controller="Post" asp-action="Create" asp-route-id="@Model.Forum.Id">Create New Post</a>
+        @foreach (var post in Model.Posts.OrderByDescending(p => p.Created))
+        {
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <a asp-controller="Post" asp-action="Index" asp-route-id="@post.Id">@post.Title</a> | <small>@post.Created</small>
+                    <p class="subtitle is-6">By: @post.User.UserName</p>
+                </li>
+            </ul>
+        }
+    }
+</div>

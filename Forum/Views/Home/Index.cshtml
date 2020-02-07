@@ -1,8 +1,80 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model Forum.Models.Home.HomeIndexModel
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<Forum.ForumData.Models.ApplicationUser> userManager
+@inject SignInManager<Forum.ForumData.Models.ApplicationUser> SignInManager
+<section class="hero is-small is-primary is-bold">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">
+                Welcome to a Forum made for developers
+            </h1>
+            <h2 class="subtitle">
+                This forum is created for developers to engage with other developers to discuss code related <br />things and other fun programming languages
+            </h2>
+        </div>
+    </div>
+</section>
+<br />
+<div class="container">
+    <h2 class="title is-2">Latest Posts</h2>
+    @foreach (var post in Model.Latest)
+    {
+        <ul class="list-group">
+            <li class="list-group-item">
+                <a asp-controller="Post" asp-action="Index" asp-route-id="@post.Id">@post.Title</a> | <small>@post.Created</small>
+                @if (post.RepliesCount == 0)
+                {
+                    if (SignInManager.IsSignedIn(User))
+                    {
+                        <p>No replies | <span class="subtitle is-6"><a asp-controller="Reply" asp-action="Create" asp-route-id="@post.Id">Reply</a></span></p>
+                    }
+                    else
+                    {
+                        <p>No replies</p>
+                    }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+                }
+                else if (post.RepliesCount == 1)
+                {
+                    if (SignInManager.IsSignedIn(User))
+                    {
+                        <p class="subtitle is-6">
+                            @post.RepliesCount reply |
+                            <span class="subtitle is-6">
+                                <a asp-controller="Reply" asp-action="Create" asp-route-id="@post.Id">Reply</a>
+                            </span>
+                        </p>
+
+                    }
+                    else
+                    {
+                        <p class="subtitle is-6">
+                            @post.RepliesCount reply
+                        </p>
+
+                    }
+                }
+                else
+                {
+                    if (SignInManager.IsSignedIn(User))
+                    {
+                        <p class="subtitle is-6">
+                            @post.RepliesCount replies |
+                            <span class="subtitle is-6">
+                                <a asp-controller="Reply" asp-action="Create" asp-route-id="@post.Id">Reply</a>
+                            </span>
+                        </p>
+
+                    }
+                    else
+                    {
+                        <p class="subtitle is-6">
+                            @post.RepliesCount replies
+                        </p>
+
+                    }
+                }
+            </li>
+        </ul>
+    }
 </div>

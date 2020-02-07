@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using Forum.ForumData.Models;
 
 namespace Forum.Models.Post
@@ -6,7 +7,8 @@ namespace Forum.Models.Post
     public class PostReplyModel
     {
         public int Id { get; set; }
-       
+
+        [Required(ErrorMessage = "This field is required")]
         public string ReplyContent { get; set; }
 
         public DateTime ReplyCreated { get; set; }

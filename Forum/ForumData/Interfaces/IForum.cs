@@ -1,10 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
 namespace Forum.ForumData.Interfaces
 {
-    public class IForum
+    public interface IForum 
     {
-        public IForum()
-        {
-        }
+        IEnumerable<Models.Forum> GetAll();
+        Models.Forum GetById(int? id);
+
+        Task Create(Models.Forum forum);
+        Task Delete(int id);
+        Task Edit(int id, string title, string description, string imageUrl);
+
     }
 }

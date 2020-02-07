@@ -1,10 +1,25 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Forum.ForumData.Models;
+
 namespace Forum.ForumData.Interfaces
 {
-    public class IPost
+    public interface IPost
     {
-        public IPost()
-        {
-        }
+        // Get all Posts
+        IEnumerable<Post> GetAll();
+        IEnumerable<Post> GetLatestPosts(int num);
+
+        // Get Post by ID
+        Post GetById(int? id);
+
+        // Create Post
+        Task Create(Post Post);
+
+        Task AddReply(PostReply reply);
+
+        // Delete Post by ID
+        Task Delete(int id);
     }
 }

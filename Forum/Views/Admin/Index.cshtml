@@ -1,5 +1,59 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model Forum.Models.Admin.AddRoleModel
+<div class="container my-4">
+    <h3 class="title is-3 mb-3">Admin Panel</h3>
+
+    <h4 class="subtitle is-4 mb-3">Add a user with a specific role</h4>
+    @*Form goes here*@
+    <form asp-controller="Admin" asp-action="AddUserRole" class="mb-3">
+        <div class="field">
+            <label class="label" asp-for="UserName"></label>
+            <div class="control">
+                <input class="input" type="text" placeholder="Enter User" asp-for="UserName">
+            </div>
+        </div>
+        <div class="field">
+            <label class="label" asp-for="Email"></label>
+            <div class="control">
+                <input class="input" type="email" placeholder="Enter Email Address" asp-for="Email">
+            </div>
+        </div>
+        <div class="field">
+            <label class="label" asp-for="Password"></label>
+            <div class="control">
+                <input class="input" type="password" placeholder="********" asp-for="Password">
+            </div>
+        </div>
+        <div class="field">
+            <label class="label" asp-for="RoleName"></label>
+            <div class="control">
+                <input class="input" type="text" placeholder="Enter Role" asp-for="RoleName">
+            </div>
+        </div>
+        <div class="field">
+            <input type="submit" class="button is-fullwidth is-primary" />
+        </div>
+    </form>
+    <table class="table is-fullwidt mb-4">
+        <tbody>
+            @foreach (var user in Model.AdminUsers)
+            {
+                <tr>
+                    <th>#</th>
+                    <td>@user.Id</td>
+                    <td>
+                        @user.UserName
+                    </td>
+                    <td>@user.Email</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+
+
+

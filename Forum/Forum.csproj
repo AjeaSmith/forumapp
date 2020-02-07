@@ -6,4 +6,45 @@
 
 
 
+  <ItemGroup>
+    <Folder Include="ForumData\" />
+    <Folder Include="ForumServices\" />
+    <Folder Include="ForumData\Models\" />
+    <Folder Include="ForumData\Interfaces\" />
+    <Folder Include="Views\Forum\" />
+    <Folder Include="Models\Forum\" />
+    <Folder Include="Models\Post\" />
+    <Folder Include="Views\Post\" />
+    <Folder Include="Models\Home\" />
+    <Folder Include="Models\Account\" />
+    <Folder Include="Views\Account\" />
+    <Folder Include="Models\User\" />
+    <Folder Include="Views\User\" />
+    <Folder Include="Views\Reply\" />
+    <Folder Include="wwwroot\images\" />
+    <Folder Include="Views\Admin\" />
+    <Folder Include="Models\Admin\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.1">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.1">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="3.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="Views\Shared\_ReplyView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="app.db-shm" />
+  </ItemGroup>
 </Project>

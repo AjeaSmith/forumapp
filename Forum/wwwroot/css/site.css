@@ -69,3 +69,19 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+/*Other css styles*/
+.flex-contents {
+    display: flex;
+    flex-direction: row;
+}
+
+
+
+
+
+
+
+
+
+

@@ -1,7 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Forum.Models.User
+namespace Forum.Models.Account
+
 {
     public class RegisterViewModel
     {

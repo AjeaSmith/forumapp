@@ -25,22 +25,6 @@ namespace Forum.Migrations
                 name: "IX_PostReplies_UserId",
                 table: "PostReplies",
                 column: "UserId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_PostReplies_AspNetUsers_UserId",
-                table: "PostReplies",
-                column: "UserId",
-                principalTable: "AspNetUsers",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Posts_AspNetUsers_UserId",
-                table: "Posts",
-                column: "UserId",
-                principalTable: "AspNetUsers",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
