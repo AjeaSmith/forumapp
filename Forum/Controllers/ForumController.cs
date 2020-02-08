@@ -7,6 +7,7 @@ using Forum.Models.Forum;
 using Forum.Models.Post;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using NToastNotify;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -18,11 +19,14 @@ namespace Forum.Controllers
         private readonly IPost _postService;
         private readonly IHostingEnvironment _env;
 
-        public ForumController(IForum forumService, IPost postService, IHostingEnvironment env)
+        private readonly IToastNotification _toastNotification;
+
+        public ForumController(IForum forumService, IPost postService, IHostingEnvironment env,  IToastNotification toastNotification)
         {
             _forumService = forumService;
             _postService = postService;
             _env = env;
+            _toastNotification = toastNotification;
         }
         // GET: /<controller>/
         public IActionResult Index()
@@ -51,6 +55,7 @@ namespace Forum.Controllers
             // Upload Image functionality!
             if (ModelState.IsValid)
             {
+                _toastNotification.AddSuccessToastMessage("Successfully added forum");
                 string imageFile = null;
                 if(model.ImageUpload != null)
                 {
@@ -70,6 +75,7 @@ namespace Forum.Controllers
                 _forumService.Create(forumModel);
                 return RedirectToAction("Index", "Forum");
             }
+            _toastNotification.AddErrorToastMessage("Error: failed adding forum");
             return View();
         }
         public IActionResult Topic(int? id)

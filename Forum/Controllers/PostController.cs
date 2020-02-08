@@ -9,6 +9,7 @@ using Forum.Models.Forum;
 using Forum.Models.Post;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using NToastNotify;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -20,12 +21,16 @@ namespace Forum.Controllers
         private readonly IForum _forumService;
         private readonly IApplicationUser _userService;
         private readonly UserManager<ApplicationUser> _userManager;
-        public PostController(IPost postService, IForum forumService, IApplicationUser userService, UserManager<ApplicationUser> userManager)
+        private readonly IToastNotification _toastNotification;
+        public PostController(IPost postService, IForum forumService, 
+        IApplicationUser userService, 
+        UserManager<ApplicationUser> userManager, IToastNotification toastNotification)
         {
             _postService = postService;
             _forumService = forumService;
             _userService = userService;
             _userManager = userManager;
+            _toastNotification = toastNotification;
         }
         // GET: /<controller>/
         [HttpGet]
@@ -74,6 +79,7 @@ namespace Forum.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    _toastNotification.AddSuccessToastMessage("Successfully added post!");
                     var forum = _forumService.GetById(id);
                     var userId = _userManager.GetUserId(User);
                     var user = _userManager.FindByIdAsync(userId).Result;
@@ -88,6 +94,7 @@ namespace Forum.Controllers
                     _postService.Create(postModel);
                     return RedirectToAction("Index", "Forum");
                 }
+                _toastNotification.AddErrorToastMessage("Error: failed to add post");
                 return View();
             }
             catch (DataException ex)

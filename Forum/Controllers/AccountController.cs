@@ -99,7 +99,7 @@ namespace Forum.Controllers
         {
             // isActive is false at this point
             await _signInManager.SignOutAsync();
-            _toastNotification.AddSuccessToastMessage("Logged out Successfully");
+            _toastNotification.AddInfoToastMessage("Logged out Successfully");
             return RedirectToAction("Index", "Home");
         }
     }

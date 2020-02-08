@@ -9,6 +9,7 @@ using Forum.Models.Admin;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using NToastNotify;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -20,13 +21,18 @@ namespace Forum.Controllers
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IToastNotification _toastNotification;
         private readonly IApplicationUser _userService;
-        public AdminController(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IApplicationUser userService)
+        public AdminController(RoleManager<IdentityRole> roleManager, 
+        UserManager<ApplicationUser> userManager, 
+        SignInManager<ApplicationUser> signInManager, 
+        IApplicationUser userService, IToastNotification toastNotification)
         {
             _roleManager = roleManager;
             _userManager = userManager;
             _signInManager = signInManager;
-            _userService = userService;   
+            _userService = userService; 
+            _toastNotification = toastNotification;  
         }
         // GET: /<controller>/
         public IActionResult Index()
@@ -46,6 +52,7 @@ namespace Forum.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    _toastNotification.AddSuccessToastMessage("User role added successfully");
                     if(model.RoleName == "Admin")
                     {
                         var user = new ApplicationUser
@@ -72,6 +79,7 @@ namespace Forum.Controllers
                     }
 
                 }
+                _toastNotification.AddErrorToastMessage("Error: failed to add user role");
                 return RedirectToAction("Index", "Forum");
             }
             catch (DataException ex)
