@@ -15,7 +15,7 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
-            <h2 class="navbar-brand" asp-controller="Home" action="Index" style="padding-top:10px;">Dev Community Forum</h2>
+            <a class="navbar-brand" asp-controller="Home" action="Index" style="padding-top:10px;" asp-controller="Home" asp-action="Index">Dev Community Forum</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -73,5 +73,6 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
+    @await Component.InvokeAsync("NToastNotify")
 </body>
 </html>

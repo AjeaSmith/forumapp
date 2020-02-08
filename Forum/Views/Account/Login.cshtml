@@ -1,17 +1,5 @@
 ﻿@model Forum.Models.Account.LoginViewModel
 <div class="container mt-4">
-    <div class="modal" id="bulmaModal">
-        <div class="modal-background"></div>
-        <div class="modal-card">
-            <section class="modal-card-body">
-                <p class="subtitle is-4">@ViewBag.Message</p>
-            </section>
-            <footer class="modal-card-foot">
-                <a class="button is-success" asp-controller="Home" asp-action="Index">Ok</a>
-                <button class="button">Cancel</button>
-            </footer>
-        </div>
-    </div>
     <h2 class="title is-2 mb-4">Login</h2>
     <form asp-controller="Account" asp-action="Login" method="post" id="loginForm">
         <div class="field">
@@ -37,20 +25,3 @@
         </div>
     </form>
 </div>
-@{
-    if (ViewBag.Message != null)
-    {
-        <script src="~/lib/jquery/dist/jquery.min.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-        <script type="text/javascript">$(function () {
-                $('#bulmaModal').addClass('is-active');
-            });</script>
-    }
-}
-
-
-
-
-
-
-

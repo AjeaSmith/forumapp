@@ -9,6 +9,7 @@ using Forum.Models.Account;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using NToastNotify;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -19,13 +20,15 @@ namespace Forum.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IApplicationUser _userService;
+        private readonly IToastNotification _toastNotification;
 
         public AccountController(UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager, IApplicationUser userService)
+            SignInManager<ApplicationUser> signInManager, IApplicationUser userService, IToastNotification toastNotification)
         {
             _userManager = userManager;
             _userService = userService;
             _signInManager = signInManager;
+            _toastNotification = toastNotification;
         }
         // GET: /<controller>/
         public IActionResult Register()
@@ -39,8 +42,7 @@ namespace Forum.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    TempData["message"] = "Saved Succesfully";
-                    ViewBag.Message = "Successful";
+                    _toastNotification.AddSuccessToastMessage("Registration was Successful!");
                     var user = new ApplicationUser
                     {
                         UserName = model.Username,
@@ -55,8 +57,9 @@ namespace Forum.Controllers
 
                         await _signInManager.SignInAsync(user, isPersistent: false);
                     }
-
+                    return RedirectToAction("Index", "Home");
                 }
+                _toastNotification.AddErrorToastMessage("Error: Register Failed");
                 return View();
             }
             catch (DataException ex)
@@ -73,19 +76,18 @@ namespace Forum.Controllers
         {
             try
             {
-                ViewBag.Message = "";
                 if (ModelState.IsValid)
                 {
-                    ViewBag.Message = "Logged In Succesfully";
+                    _toastNotification.AddSuccessToastMessage("Logged In Successfully");
                     var user = await _userManager.FindByNameAsync(model.Username);
                     var result = await _userManager.CheckPasswordAsync(user, model.Password);
                     if (result)
                     {
                         await _signInManager.SignInAsync(user, isPersistent: false);
                     }
-                    return View();
-
+                    return RedirectToAction("Index", "Home");
                 }
+                _toastNotification.AddErrorToastMessage("Error: Login Failed");
                 return View();
             }
             catch (DataException ex)
@@ -97,10 +99,7 @@ namespace Forum.Controllers
         {
             // isActive is false at this point
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
-        }
-        public IActionResult Dismiss()
-        {
+            _toastNotification.AddSuccessToastMessage("Logged out Successfully");
             return RedirectToAction("Index", "Home");
         }
     }

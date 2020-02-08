@@ -10,6 +10,8 @@ using Forum.ForumData.Interfaces;
 using Forum.Models.Home;
 using Forum.Models.Post;
 using Forum.ForumData.Models;
+using NToastNotify;
+using Microsoft.AspNetCore.Identity;
 
 namespace Forum.Controllers
 {
@@ -17,7 +19,6 @@ namespace Forum.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IPost _postService;
-
         public HomeController(ILogger<HomeController> logger, IPost postService)
         {
             _logger = logger;
