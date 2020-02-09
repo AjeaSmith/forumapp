@@ -1,0 +1,32 @@
+@model Forum.Models.User.UserViewModel
+<div class="container mt-4">
+    <h3 class="title">Update Profile Info</h3>
+    <form asp-controller="Profile" asp-action="Edit" method="post">
+        <div class="field">
+             <label class="label" asp-for="Email"></label>
+            <div class="control">
+                <input class="input" type="email" placeholder="Add Title Here..." asp-for="Email"/>
+                <span class="help is-danger" asp-validation-for="Email"></span>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label" asp-for="UserDescription"></label>
+            <div class="control">
+                <textarea class="textarea" placeholder="Add Message Here ..." asp-for="UserDescription" rows="8"></textarea>
+                <span class="help is-danger" asp-validation-for="UserDescription"></span>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label" asp-for="Password"></label>
+            <div class="control">
+                <input class="input" placeholder="********" type="password" asp-for="Password"/>
+                <span class="help is-danger" asp-validation-for="Password"></span>
+            </div>
+        </div>
+        <div class="field">
+            <div class="control">
+                <input class="button is-primary" type="submit" value="Update"/>
+            </div>
+        </div>
+    </form>
+</div>

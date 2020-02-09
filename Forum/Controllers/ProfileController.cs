@@ -51,5 +51,23 @@ namespace Forum.Controllers
                 Created = p.Created.ToString()
             });
         }
+        public IActionResult Edit()
+        {
+          var userId = _userManager.GetUserId(User);
+          var user = _userService.GetById(userId);
+
+          var model = new UserViewModel(){
+              UserDescription = user.UserDescription,
+              Email = user.Email,
+              Password = user.PasswordHash
+          };
+          return View(model);
+        }
+        [HttpPost]
+        public IActionResult Edit(UserViewModel model)
+        {
+            //update the user from DB with model values
+            return Created("", null);
+        }
     }
 }

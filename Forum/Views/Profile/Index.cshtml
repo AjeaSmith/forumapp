@@ -13,7 +13,7 @@
           <p>
             <span class='title is-bold'>@Model.UserName</span>
             <p class='subtitle is-6 mb-2'><b>Member Since</b> @Model.MemberSince | <b>Rating</b> @Model.Rating</p>
-            <a class='button is-primary is-outlined' href='#' id='edit-preferences' style='margin: 5px 0'>
+            <a class='button is-primary is-outlined' asp-controller="Profile" asp-action="Edit" style='margin: 5px 0'>
               Edit Preferences
             </a>
           </p>
@@ -24,11 +24,11 @@
       </div>
     </div>
     <section class='flexWrap'>
-        <h2 class="title is-4 has-text-centered">@Model.UserName Posts</h2>
         @{
             if(!Model.UserPosts.Any()){
-                <h2 class="title is-4 has-text-centered">You have no posts to display</h2>
+                <h2 class="title is-4">You have no posts to display</h2>
             }
+            <h2 class="title is-4 has-text-centered">@Model.UserName Posts</h2>
             foreach(var post in Model.UserPosts){
                 <div class='column is-full mb-2'>
                     <div class='card'>
