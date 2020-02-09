@@ -71,9 +71,9 @@ body {
 }
 
 /*Other css styles*/
-.flex-contents {
-    display: flex;
-    flex-direction: row;
+.flexWrap {
+  display: flex;
+    flex-wrap: wrap;
 }
 
 

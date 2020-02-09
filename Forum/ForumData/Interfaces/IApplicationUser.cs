@@ -11,9 +11,9 @@ namespace Forum.ForumData.Interfaces
         IEnumerable<ApplicationUser> GetActiveUsers();
         IEnumerable<ApplicationUser> GetAdminUsers();
         ApplicationUser GetByName(string name);
-        ApplicationUser GetById(int id);
+        ApplicationUser GetById(string id);
 
         Task Create(ApplicationUser user);
-        Task Remove(int id);
+        Task Remove(string id);
     }
 }

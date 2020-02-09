@@ -10,6 +10,7 @@ namespace Forum.ForumData.Interfaces
         // Get all Posts
         IEnumerable<Post> GetAll();
         IEnumerable<Post> GetLatestPosts(int num);
+        IEnumerable<Post> GetUserPost(string id);
 
         // Get Post by ID
         Post GetById(int? id);

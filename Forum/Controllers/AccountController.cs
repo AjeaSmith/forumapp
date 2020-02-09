@@ -49,7 +49,8 @@ namespace Forum.Controllers
                         Email = model.Email,
                         PasswordHash = model.Password,
                         MemberSince = DateTime.Now,
-                        IsActive = true
+                        IsActive = true,
+                        Rating = 0
                     };
                     var result = await _userManager.CreateAsync(user, model.Password);
                     if (result.Succeeded)

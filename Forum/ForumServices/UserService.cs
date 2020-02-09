@@ -5,6 +5,7 @@ using Forum.ForumData.Interfaces;
 using Forum.ForumData;
 using System.Threading.Tasks;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace Forum.ForumServices
 {
@@ -33,7 +34,7 @@ namespace Forum.ForumServices
             return _context.ApplicationUsers;
         }
 
-        public Task Remove(int id)
+        public Task Remove(string id)
         {
             var userToRemove = GetById(id);
             _context.Remove(userToRemove);
@@ -45,7 +46,7 @@ namespace Forum.ForumServices
             return _context.ApplicationUsers.Where(user => user.UserName == name).FirstOrDefault();
         }
 
-        public ApplicationUser GetById(int id)
+        public ApplicationUser GetById(string id)
         {
             return _context.ApplicationUsers.Find(id);
         }
@@ -54,5 +55,6 @@ namespace Forum.ForumServices
         {
             return _context.ApplicationUsers.Where(user => user.IsAdmin == true);
         }
+
     }
 }

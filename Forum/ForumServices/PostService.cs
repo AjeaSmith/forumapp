@@ -56,5 +56,11 @@ namespace Forum.ForumServices
         {
             return GetAll().OrderByDescending(p => p.Created).Take(num);
         }
+
+        // Get posts from signed in user
+        public IEnumerable<Post> GetUserPost(string id)
+        {
+            return _context.Posts.Where(p => p.UserId == id);
+        }
     }
 }
