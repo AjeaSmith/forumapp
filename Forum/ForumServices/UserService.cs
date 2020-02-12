@@ -55,6 +55,15 @@ namespace Forum.ForumServices
         {
             return _context.ApplicationUsers.Where(user => user.IsAdmin == true);
         }
-
+        public ApplicationUser UpdateUser(string id, string Email, string userDescription, string password)
+        {
+            var newUser = GetById(id);
+            newUser.Email = Email;
+            newUser.UserDescription = userDescription;
+            newUser.PasswordHash = password;
+            _context.ApplicationUsers.Update(newUser);
+            _context.SaveChanges();
+            return newUser;
+        }
     }
 }

@@ -12,6 +12,7 @@ namespace Forum.ForumData.Interfaces
         IEnumerable<ApplicationUser> GetAdminUsers();
         ApplicationUser GetByName(string name);
         ApplicationUser GetById(string id);
+        ApplicationUser UpdateUser(string id, string Email, string userDescription, string password);
 
         Task Create(ApplicationUser user);
         Task Remove(string id);

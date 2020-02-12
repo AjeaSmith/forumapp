@@ -1,5 +1,23 @@
 ﻿@model Forum.Models.User.UserViewModel
-
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<Forum.ForumData.Models.ApplicationUser> UserManager
+<div class="modal" id="modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Deactivate</p>
+    </header>
+    <section class="modal-card-body">
+      <h2 class="title is-4">Are you sure you want to deactivate your account?</h2>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-danger" asp-controller="Profile" 
+      asp-action="Deactivate" asp-route-id="@UserManager.GetUserId(User)">Yes</button>
+      <button class="button is-success" asp-controller="Profile" 
+      asp-action="Index">No</button>
+    </footer>
+  </div>
+</div>
 <div class='columns'>
   <div class='container profile'>
     <div class='section profile-heading'>
@@ -16,6 +34,9 @@
             <a class='button is-primary is-outlined' asp-controller="Profile" asp-action="Edit" style='margin: 5px 0'>
               Edit Preferences
             </a>
+            <a class='button is-danger is-outlined' id="modalbtn" style='margin: 5px 0'>
+              Deactive
+            </a>
           </p>
           <p class='tagline'>
             @Model.UserDescription
@@ -24,28 +45,39 @@
       </div>
     </div>
     <section class='flexWrap'>
-        @{
-            if(!Model.UserPosts.Any()){
-                <h2 class="title is-4">You have no posts to display</h2>
-            }
-            <h2 class="title is-4 has-text-centered">@Model.UserName Posts</h2>
-            foreach(var post in Model.UserPosts){
-                <div class='column is-full mb-2'>
-                    <div class='card'>
-                        <div class='card-content'>
-                            <div class='content'>
-                            <span class='tag is-dark subtitle'>#@post.Id</span>
-                            <p class="title is-5 mb-2"><a asp-controller="Post" asp-action="Index" asp-route-id="@post.Id">@post.Title</a></p> <span class="subtitle is-6">@post.Created</span>
-                            <p>@post.Content</p>
-                        </div>
-                    </div>
-                    <footer class='card-footer'>
-                        <a class='card-footer-item button is-danger is-outlined'>Delete</a>
-                    </footer>
-                    </div>
-                </div>
-            }
+      @{
+        if(!Model.UserPosts.Any()){
+          <h2 class="title is-4">You have no posts to display</h2>
         }
+        <h2 class="title is-4 has-text-centered">@Model.UserName Posts</h2>
+        foreach(var post in Model.UserPosts){
+          <div class='column is-full mb-2'>
+            <div class='card'>
+              <div class='card-content'>
+                <div class='content'>
+                <span class='tag is-dark subtitle'>#@post.Id</span>
+                <p class="title is-5 mb-2"><a asp-controller="Post" asp-action="Index" asp-route-id="@post.Id">@post.Title</a></p> <span class="subtitle is-6">@post.Created</span>
+                <p>@post.Content</p>
+              </div>
+            </div>
+            <footer class='card-footer'>
+                <a class='card-footer-item button is-danger is-outlined'>Delete</a>
+            </footer>
+            </div>
+          </div>
+        }
+      }
     </section>
   </div>
 </div>
+@{
+  <script src="~/lib/jquery/dist/jquery.min.js"></script>
+  <script>
+    $(function(){
+      $("#modalbtn").click(function(){
+        $("#modal").addClass("is-active");
+      })
+    });
+  </script>
+}
+
